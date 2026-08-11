@@ -108,5 +108,25 @@ Automated cloud builds are managed via GitHub Actions in [.github/workflows/buil
 
 ---
 
+## Models & integrations
+
+This repository includes an optional third-party models integration for experimentation. The LLaMA C++ reference implementation is added as a git submodule at:
+
+- third_party/llama.cpp (https://github.com/ggerganov/llama.cpp)
+
+Build notes:
+- Do NOT commit model weights into the repository. Add model download steps or instructions instead.
+- On CI (GitHub Actions) the workflow `.github/workflows/compile-llama.yml` checks out submodules and attempts to build `third_party/llama.cpp`.
+- To build locally (Ubuntu):
+
+```bash
+sudo apt-get update
+sudo apt-get install -y build-essential cmake libgomp1
+cd third_party/llama.cpp
+make -j"$(nproc)"
+```
+
+If the build fails on macOS, prefer running the CI on Ubuntu or adjust the build steps for macOS toolchains.
+
 ## 📜 License & Acknowledgments
 Built with **BrowserOS**, **TerminusDB**, **GLM-5.1**, and the **Akan Metaphysical Framework**.
